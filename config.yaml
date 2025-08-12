@@ -1,0 +1,5 @@
+rest: true
+graphqlSchema:
+  files: src/schema/schema.graphql
+jsResource:
+  files: dist/resources/index.js

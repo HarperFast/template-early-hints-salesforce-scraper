@@ -1,0 +1,56 @@
+name: Deploy Application
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Select the environment to deploy to
+        options:
+          - dev
+          - prod
+      ref:
+        type: string
+        description: Specific branch or commit SHA to deploy (defaults to latest commit on the 'main' branch)
+        required: false
+      restart:
+        type: boolean
+        description: Restart After Deploy
+        default: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: 'Copy env file'
+        run: |
+          ENV_TYPE=$(echo ${{ inputs.environment }} | cut -d'-' -f1)
+          cp ./.env.$ENV_TYPE ./.env
+        shell: bash
+      - name: 'Install project dependencies'
+        run: npm install
+        shell: bash
+      - name: 'Install HarperDB'
+        run: npm install harperdb --global
+        shell: bash
+      - name: 'Build the app'
+        run: |
+          npm run build
+        shell: bash
+      - name: Deploy to HarperDB target
+        run: |
+          harperdb deploy target=${{ secrets.HDB_TARGET }} restart=${{ inputs.restart }} replicated=true
+        shell: bash
+        env:
+          CLI_TARGET_USERNAME: ${{ secrets.HDB_USERNAME }}
+          CLI_TARGET_PASSWORD: ${{ secrets.HDB_PASSWORD }}

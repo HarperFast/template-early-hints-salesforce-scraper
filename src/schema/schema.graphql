@@ -1,0 +1,24 @@
+# The JS/CSS file links all use a common cache key which is stored here
+type FileCacheKeys @table(database: "EarlyHints") @sealed @export(name: "file-cache-keys") {
+	key: String!
+	host: String @primaryKey
+}
+
+enum FileType {
+	JS
+	CSS
+}
+
+# All files included for every page and use a common cache key in url
+type Files @table(database: "EarlyHints") @sealed @export(name: "files") {
+	id: ID @primaryKey
+	fileName: String!
+	urlPrefix: String! @indexed
+	type: FileType!
+}
+
+# Product images all have unique cache key in pageUrl
+type ProductImages @table(database: "EarlyHints") @sealed @export(name: "product-images") {
+	pageUrl: String @primaryKey
+	hints: [String]!
+}

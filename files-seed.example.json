@@ -1,0 +1,12 @@
+[
+	{
+		"fileName": "/css/react/global.css",
+		"urlPrefix": "https://www.hostname.com/on/demandware.static/Sites-Name-Site/-/en_US/",
+		"type": "CSS"
+	},
+	{
+		"fileName": "/js/global.css",
+		"urlPrefix": "https://www.hostname.com/on/demandware.static/Sites-Name-Site/-/en_US/",
+		"type": "JS"
+	}
+]
