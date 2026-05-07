@@ -1,4 +1,4 @@
-import { databases, logger } from 'harperdb';
+import { databases, logger } from 'harper';
 import { XMLParser } from 'fast-xml-parser';
 import type { ParsedSitemap, ParsedUrl } from '../types/xmlParser.js';
 import { HARPER_USER_AGENT } from '../constants/index.js';

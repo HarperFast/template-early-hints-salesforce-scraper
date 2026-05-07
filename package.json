@@ -6,10 +6,10 @@
 	"scripts": {
 		"generate:types": "graphql-codegen --config codegen.ts",
 		"build": "tsc",
-		"dev": "tsc; harperdb dev .",
+		"dev": "tsc; harper dev .",
 		"format": "prettier --write .",
-		"postinstall": "npm link harperdb",
-		"postuninstall": "npm link harperdb"
+		"postinstall": "npm link harper",
+		"postuninstall": "npm link harper"
 	},
 	"prettier": "@harperdb/code-guidelines/prettier",
 	"author": "HarperDB, Inc.",

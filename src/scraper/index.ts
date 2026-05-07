@@ -1,7 +1,7 @@
 import { fetchCacheKeysFromSitemap } from './xml.js';
 import { fetchCacheKeysFromHTML } from './html.js';
 import { IMAGE_SITEMAP_URLS, KEY_REFRESH_INTERVAL, SCRAPE_HTML_PAGE_URL } from '../constants/index.js';
-import { logger } from 'harperdb';
+import { logger } from 'harper';
 
 export const runContinuousScraperJob = async () => {
 	const runJob = async () => {

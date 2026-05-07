@@ -1,4 +1,4 @@
-import { logger, server } from 'harperdb';
+import { logger, server } from 'harper';
 import { runContinuousScraperJob } from '../scraper/index.js';
 import { GetHints } from './hints.js';
 

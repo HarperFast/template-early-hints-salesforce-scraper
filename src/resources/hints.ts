@@ -1,4 +1,4 @@
-import { Resource, databases } from 'harperdb';
+import { Resource, databases } from 'harper';
 import { FileType, ProductImages } from '../types/graphql.js';
 import type { User } from '../types/index.js';
 import { AllowedUserRoles, ClientHosts, FONTS, IMAGE_HINT_QUERY_STRINGS } from '../constants/index.js';

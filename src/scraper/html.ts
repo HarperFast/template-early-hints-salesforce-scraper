@@ -1,4 +1,4 @@
-import { databases, logger } from 'harperdb';
+import { databases, logger } from 'harper';
 import { HARPER_USER_AGENT } from '../constants/index.js';
 
 const { FileCacheKeys: FileCacheKeysTable } = databases.EarlyHints;
