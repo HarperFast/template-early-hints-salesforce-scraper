@@ -53,8 +53,9 @@ export class GetHints extends Resource {
 		return user?.role?.id === AllowedUserRoles.SUPER_USER || user?.role?.id === AllowedUserRoles.READ_ONLY;
 	}
 
-	async get(query: { url: string }) {
-		const url = new URLSearchParams(query.url).get('q');
+	// @ts-ignore - Harper v5 static REST method (base class declares get as a property type)
+	static async get(target: any, context: any) {
+		const url = target.get('q');
 
 		if (!url) {
 			return {
