@@ -1,5 +1,10 @@
 import { databases, logger } from 'harper';
-import { XMLParser } from 'fast-xml-parser';
+// Harper v5 loads app modules through a VM module loader. On Node 22, fast-xml-parser's
+// ESM named exports fail to link there ("does not provide an export named 'XMLParser'").
+// Work around by loading the CJS build via createRequire instead of the ESM named import.
+import { createRequire } from 'node:module';
+const _require = createRequire(import.meta.url);
+const { XMLParser } = _require('fast-xml-parser') as typeof import('fast-xml-parser');
 import type { ParsedSitemap, ParsedUrl } from '../types/xmlParser.js';
 import { HARPER_USER_AGENT } from '../constants/index.js';
 
