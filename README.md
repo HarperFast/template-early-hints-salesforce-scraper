@@ -2,7 +2,7 @@
 
 ## Overview
 
-This HarperDB application is designed for ecommerce sites leveraging a Salesforce backend to provide **Early Hints** for key assets including:
+This Harper application is designed for ecommerce sites leveraging a Salesforce backend to provide **Early Hints** for key assets including:
 
 - Main product images
 - JS and CSS file dependencies
@@ -68,13 +68,13 @@ The current expected XML structure is:
 
 ### Runnning locally
 
-1. `git clone https://github.com/HarperDB/early-hints-salesforce-scraper-tempate.git`
-2. `cd early-hints-salesforce-scraper-tempate`
+1. `git clone https://github.com/HarperFast/template-early-hints-salesforce-scraper.git`
+2. `cd template-early-hints-salesforce-scraper`
 3. `npm install`
 4. `npm run build`
-5. `harperdb run .`
+5. `harper run .`
 
-This assumes you have the Harper stack already installed. [Install Harper](https://docs.harperdb.io/docs/deployments/install-harperdb) globally.
+This assumes you have Harper installed. [Install Harper](https://docs.harperdb.io/docs/deployments/install-harperdb) globally.
 
 ### Deployement
 
@@ -88,7 +88,7 @@ i.e.
 {
 	"operation": "deploy_component",
 	"project": "early-hints",
-	"package": "git+ssh://git@github.com:HarperDB/early-hints-salesforce-scraper-tempate.git#semver:v1.0.0",
+	"package": "git+ssh://git@github.com:HarperFast/template-early-hints-salesforce-scraper.git#semver:v1.0.0",
 	"replicated": true,
 	"restart": true
 }

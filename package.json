@@ -8,18 +8,19 @@
 		"build": "tsc",
 		"dev": "tsc; harper dev .",
 		"format": "prettier --write .",
-		"postinstall": "npm link harper",
-		"postuninstall": "npm link harper"
+		"test:integration": "harper-integration-test-run \"integrationTests/**/*.test.ts\""
 	},
 	"prettier": "@harperdb/code-guidelines/prettier",
-	"author": "HarperDB, Inc.",
+	"author": "Harper, Inc.",
 	"devDependencies": {
 		"@graphql-codegen/cli": "^5.0.3",
 		"@graphql-codegen/typescript": "^4.1.2",
 		"@graphql-codegen/typescript-operations": "^4.4.0",
 		"@harperdb/code-guidelines": "^0.0.2",
+		"@harperfast/integration-testing": "^0.4.0",
 		"@types/node": "^22.10.2",
 		"graphql": "^16.10.0",
+		"harper": "^5.0.28",
 		"prettier": "^3.4.2",
 		"tsx": "^4.19.2",
 		"typescript": "^5.7.2"

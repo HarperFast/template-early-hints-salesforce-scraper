@@ -40,16 +40,16 @@ jobs:
       - name: 'Install project dependencies'
         run: npm install
         shell: bash
-      - name: 'Install HarperDB'
-        run: npm install harperdb --global
+      - name: 'Install Harper'
+        run: npm install harper --global
         shell: bash
       - name: 'Build the app'
         run: |
           npm run build
         shell: bash
-      - name: Deploy to HarperDB target
+      - name: Deploy to Harper target
         run: |
-          harperdb deploy target=${{ secrets.HDB_TARGET }} restart=${{ inputs.restart }} replicated=true
+          harper deploy target=${{ secrets.HDB_TARGET }} restart=${{ inputs.restart }} replicated=true
         shell: bash
         env:
           CLI_TARGET_USERNAME: ${{ secrets.HDB_USERNAME }}
