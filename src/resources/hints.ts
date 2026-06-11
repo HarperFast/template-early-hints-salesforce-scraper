@@ -37,7 +37,7 @@ const getFiles = async (url: URL): Promise<string[]> => {
 
 	const [commonCacheKey, fileResults] = await Promise.all([commonCacheKeyQuery, filesQuery]);
 
-	const hints: string[] = FONTS[url.hostname as ClientHosts];
+	const hints: string[] = FONTS[url.hostname as ClientHosts] ?? [];
 
 	for await (const file of fileResults) {
 		hints.push(
@@ -65,7 +65,12 @@ export class GetHints extends Resource {
 			};
 		}
 
-		const urlObject = new URL(url);
+		let urlObject: URL;
+		try {
+			urlObject = new URL(url);
+		} catch {
+			return { status: 400, headers: { 'Content-Type': 'application/json' }, data: { error: 'Invalid URL in "q" query parameter' } };
+		}
 
 		const [productImages, files] = await Promise.all([getProductImages(urlObject), getFiles(urlObject)]);
 		const earlyHints = productImages.length ? [...productImages, ...files].join(',') : files.join(',');
