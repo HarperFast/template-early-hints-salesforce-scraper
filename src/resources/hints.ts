@@ -1,4 +1,4 @@
-import { Resource, databases } from 'harperdb';
+import { Resource, databases } from 'harper';
 import { FileType, ProductImages } from '../types/graphql.js';
 import type { User } from '../types/index.js';
 import { AllowedUserRoles, ClientHosts, FONTS, IMAGE_HINT_QUERY_STRINGS } from '../constants/index.js';
@@ -37,7 +37,7 @@ const getFiles = async (url: URL): Promise<string[]> => {
 
 	const [commonCacheKey, fileResults] = await Promise.all([commonCacheKeyQuery, filesQuery]);
 
-	const hints: string[] = FONTS[url.hostname as ClientHosts];
+	const hints: string[] = FONTS[url.hostname as ClientHosts] ?? [];
 
 	for await (const file of fileResults) {
 		hints.push(
@@ -53,8 +53,9 @@ export class GetHints extends Resource {
 		return user?.role?.id === AllowedUserRoles.SUPER_USER || user?.role?.id === AllowedUserRoles.READ_ONLY;
 	}
 
-	async get(query: { url: string }) {
-		const url = new URLSearchParams(query.url).get('q');
+	// @ts-ignore - Harper v5 static REST method (base class declares get as a property type)
+	static async get(target: any, context: any) {
+		const url = target.get('q');
 
 		if (!url) {
 			return {
@@ -64,7 +65,12 @@ export class GetHints extends Resource {
 			};
 		}
 
-		const urlObject = new URL(url);
+		let urlObject: URL;
+		try {
+			urlObject = new URL(url);
+		} catch {
+			return { status: 400, headers: { 'Content-Type': 'application/json' }, data: { error: 'Invalid URL in "q" query parameter' } };
+		}
 
 		const [productImages, files] = await Promise.all([getProductImages(urlObject), getFiles(urlObject)]);
 		const earlyHints = productImages.length ? [...productImages, ...files].join(',') : files.join(',');
